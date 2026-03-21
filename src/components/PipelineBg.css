@@ -1,0 +1,21 @@
+.pipeline-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Very faint — just enough to feel the pipeline without competing with content */
+  opacity: 0.07;
+}
+
+[data-theme="light"] .pipeline-bg {
+  opacity: 0.04;
+}
+
+.pipeline-bg-svg {
+  width: 100%;
+  height: 100%;
+}

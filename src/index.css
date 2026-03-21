@@ -1,0 +1,183 @@
+/* ── Dark theme (default) ─────────────────────────────────────────────────── */
+:root, [data-theme="dark"] {
+  --bg-primary:        #050c14;
+  --bg-secondary:      #0a1628;
+  --bg-card:           #0d1f35;
+  --bg-card-hover:     #112540;
+  --accent:            #00d4ff;
+  --accent-dim:        #0099bb;
+  --accent-glow:       rgba(0, 212, 255, 0.12);
+  --accent-glow-strong:rgba(0, 212, 255, 0.28);
+  --text-primary:      #e8f4fd;
+  --text-secondary:    #7da8cc;
+  --text-muted:        #3d6080;
+  --border:            rgba(0, 212, 255, 0.12);
+  --border-bright:     rgba(0, 212, 255, 0.35);
+  --grid-line:         rgba(0, 212, 255, 0.03);
+  --nav-bg:            rgba(5, 12, 20, 0.92);
+  --scrollbar-thumb:   #1a3c6e;
+  --shadow:            rgba(0,0,0,0.5);
+}
+
+/* ── Light theme ──────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:        #f0f4f8;
+  --bg-secondary:      #e2eaf3;
+  --bg-card:           #ffffff;
+  --bg-card-hover:     #f5f9ff;
+  --accent:            #0969da;
+  --accent-dim:        #0550ae;
+  --accent-glow:       rgba(9, 105, 218, 0.1);
+  --accent-glow-strong:rgba(9, 105, 218, 0.2);
+  --text-primary:      #0d1117;
+  --text-secondary:    #24292f;
+  --text-muted:        #6e7781;
+  --border:            rgba(9, 105, 218, 0.15);
+  --border-bright:     rgba(9, 105, 218, 0.4);
+  --grid-line:         rgba(9, 105, 218, 0.04);
+  --nav-bg:            rgba(240, 244, 248, 0.92);
+  --scrollbar-thumb:   #b0c4de;
+  --shadow:            rgba(0,0,0,0.1);
+}
+
+:root {
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+
+::selection { background: var(--accent-glow-strong); color: var(--accent); }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--text-primary); }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+  50%       { box-shadow: 0 0 40px var(--accent-glow-strong), 0 0 80px var(--accent-glow); }
+}
+
+/* ── Content isolation — ensure all text/cards sit clearly above pipeline bg ── */
+main > section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle frosted-glass effect on text-heavy areas */
+.hero-text,
+.section-header {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── DM Sans body copy overrides ─────────────────────────────────────────── */
+/* Any descriptive paragraph text uses DM Sans; code/tags/labels keep mono   */
+.section-sub,
+.hero-bio,
+.project-desc,
+.repo-desc,
+.tc-desc,
+.cr-desc,
+.avail-sub,
+.contact-sub {
+  font-family: var(--font-body);
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── Scroll progress bar ────────────────────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #00d4ff, #0099bb);
+  box-shadow: 0 0 8px rgba(0,212,255,0.7);
+  z-index: 999;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+[data-theme="light"] .scroll-progress {
+  background: linear-gradient(90deg, #0969da, #0550ae);
+  box-shadow: 0 0 8px rgba(9,105,218,0.5);
+}
+
+/* Auto-reveal all section headers */
+.skills-section .section-header,
+.certs-section .section-header,
+.projects-section .section-header,
+.gh-repos-section .section-header,
+.contact-section .section-header {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.skills-section .section-header.in-view,
+.certs-section .section-header.in-view,
+.projects-section .section-header.in-view,
+.gh-repos-section .section-header.in-view,
+.contact-section .section-header.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
