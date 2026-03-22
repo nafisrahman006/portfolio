@@ -26,11 +26,10 @@ export default function Contact() {
 
         <div className="contact-banner-left">
           <h2 className="contact-headline">
-            READY TO <span className="contact-headline-accent">START?</span>
+            GET IN <span className="contact-headline-accent">TOUCH</span>
           </h2>
           <p className="contact-sub">
             Open to DevOps roles, freelance projects and collaborations.<br />
-            Let's build something extraordinary together.
           </p>
         </div>
 
